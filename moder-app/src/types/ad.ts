@@ -9,11 +9,21 @@ export interface Seller {
   registeredAt: string
 }
 
+export type ModerationActionType = 'approved' | 'rejected' | 'requestChanges'
+
+export type ModerationReason =
+  | 'Запрещенный товар'
+  | 'Неверная категория'
+  | 'Некорректное описание'
+  | 'Проблемы с фото'
+  | 'Подозрение на мошенничество'
+  | 'Другое'
+
 export interface ModerationHistoryItem {
   id: number
   moderatorId: number
   moderatorName: string
-  action: 'approved' | 'rejected' | 'requestChanges'
+  action: ModerationActionType
   reason: string | null
   comment: string
   timestamp: string
@@ -51,4 +61,9 @@ export interface AdsListResponse {
 export interface AdsListParams {
   page?: number
   limit?: number
+}
+
+export interface ModerationActionResponse {
+  message: string
+  ad: Advertisement
 }

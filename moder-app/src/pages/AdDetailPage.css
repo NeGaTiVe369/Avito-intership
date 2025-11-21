@@ -1,0 +1,307 @@
+.detail-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+  background: #fff;
+}
+
+.detail-back {
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #1976d2;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.detail-back:hover {
+  text-decoration: underline;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.detail-title-block {
+  flex: 1;
+}
+
+.detail-title {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 12px;
+}
+
+.status-pending {
+  background: #9e9e9e;
+}
+
+.status-approved {
+  background: #2e7d32;
+}
+
+.status-rejected {
+  background: #c62828;
+}
+
+.status-draft {
+  background: #757575;
+}
+
+.priority-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #ef6c00;
+  color: #fff;
+  font-size: 12px;
+}
+
+.detail-price {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.detail-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.detail-main {
+  flex: 2;
+}
+
+.detail-sidebar {
+  flex: 1;
+  min-width: 260px;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.gallery {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+}
+
+.gallery img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #eee;
+}
+
+.gallery-empty {
+  font-size: 14px;
+  color: #666;
+}
+
+.characteristics-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.characteristics-table th,
+.characteristics-table td {
+  border: 1px solid #e0e0e0;
+  padding: 4px 8px;
+  text-align: left;
+}
+
+.characteristics-table th {
+  width: 40%;
+  background: #fafafa;
+}
+
+.sidebar-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.sidebar-title {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.sidebar-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.sidebar-label {
+  color: #666;
+}
+
+.sidebar-value {
+  font-weight: 500;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.history-item {
+  border-top: 1px solid #eee;
+  padding: 6px 0;
+}
+
+.history-item:first-child {
+  border-top: none;
+}
+
+.history-meta {
+  font-size: 12px;
+  color: #666;
+}
+
+.actions-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.btn {
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-approve {
+  background: #2e7d32;
+  color: #fff;
+}
+
+.btn-reject {
+  background: #c62828;
+  color: #fff;
+}
+
+.btn-changes {
+  background: #ef6c00;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid #ccc;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.action-message {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #2e7d32;
+}
+
+.action-error {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #c62828;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  padding: 16px 20px;
+  border-radius: 8px;
+  max-width: 420px;
+  width: 100%;
+}
+
+.modal-title {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.modal-field {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modal-label {
+  font-size: 14px;
+}
+
+.modal-select,
+.modal-textarea {
+  font: inherit;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.modal-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .detail-layout {
+    flex-direction: column;
+  }
+
+  .detail-sidebar {
+    width: 100%;
+  }
+}

@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getAdsList } from '../api/ads'
-import type { Advertisement, Pagination as PaginationType } from '../types/ad'
+import type { Advertisement } from '../types/ad'
 import './ListPage.css'
+import { useAdsList } from '../hooks/useAdsList'
+import { PiWarningCircleThin } from "react-icons/pi"
+import AdsFilters from '../components/AdsFilters'
 
 const statusLabel: Record<Advertisement['status'], string> = {
   pending: 'На модерации',
@@ -12,36 +13,24 @@ const statusLabel: Record<Advertisement['status'], string> = {
 }
 
 const ListPage = () => {
-  const [ads, setAds] = useState<Advertisement[]>([])
-  const [pagination, setPagination] = useState<PaginationType | null>(null)
-  const [page, setPage] = useState(1)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const {
+    ads,
+    pagination,
+    loading,
+    error,
+    filters,
+    categories,
+    handlePageChange,
+    toggleStatus,
+    handleCategoryChange,
+    handleMinPriceChange,
+    handleMaxPriceChange,
+    handleSearchChange,
+    handleSortChange,
+    handleResetFilters,
+  } = useAdsList()
 
   const navigate = useNavigate()
-
-  const loadAds = async (pageToLoad: number) => {
-    try {
-      setLoading(true)
-      setError(null)
-      const data = await getAdsList({ page: pageToLoad, limit: 10 })
-      setAds(data.ads)
-      setPagination(data.pagination)
-    } catch (e) {
-      console.error(e)
-      setError('Не удалось загрузить объявления')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    loadAds(page)
-  }, [page])
-
-  const handlePageChange = (value: number) => {
-    setPage(value)
-  }
 
   return (
     <div className="page">
@@ -54,53 +43,99 @@ const ListPage = () => {
         )}
       </div>
 
+      <AdsFilters
+        filters={filters}
+        categories={categories}
+        onToggleStatus={toggleStatus}
+        onCategoryChange={handleCategoryChange}
+        onMinPriceChange={handleMinPriceChange}
+        onMaxPriceChange={handleMaxPriceChange}
+        onSearchChange={handleSearchChange}
+        onSortChange={handleSortChange}
+        onResetFilters={handleResetFilters}
+      />
+
       {error && <div className="error">{error}</div>}
       {loading && !ads.length && <div className="loader">Загрузка…</div>}
 
       <ul className="ads-list">
-        {ads.map((ad) => (
-          <li
-            key={ad.id}
-            className="ad-card"
-            onClick={() => navigate(`/item/${ad.id}`)}
-          >
-            <div className="ad-title-row">
-              <span className="ad-title">{ad.title}</span>
+        {ads.map((ad) => {
+          return (
+            <li
+              key={ad.id}
+              className="ad-card"
+              onClick={() => navigate(`/item/${ad.id}`)}
+            >
+              <div className="ad-img">
+                <img
+                  src={ad.images[0] || "/placeholder.png"}
+                  alt={ad.title}
+                />
+              </div>
 
-              <span
-                className={
-                  'chip ' +
-                  (ad.status === 'approved'
-                    ? 'chip-status-approved'
-                    : ad.status === 'rejected'
-                    ? 'chip-status-rejected'
-                    : ad.status === 'draft'
-                    ? 'chip-status-draft'
-                    : 'chip-status-pending')
-                }
+              <div className="ad-content">
+                <div className="ad-title-row">
+                  <span className="ad-title">{ad.title}</span>
+
+                  <span
+                    className={
+                      'chip ' +
+                      (ad.status === 'approved'
+                        ? 'chip-status-approved'
+                        : ad.status === 'rejected'
+                          ? 'chip-status-rejected'
+                          : ad.status === 'draft'
+                            ? 'chip-status-draft'
+                            : 'chip-status-pending')
+                    }
+                  >
+                    {statusLabel[ad.status]}
+                  </span>
+
+                  {ad.priority === 'urgent' && (
+                    <span className="chip chip-priority-urgent">Срочно</span>
+                  )}
+                </div>
+
+                <div className="ad-price">
+                  {ad.price} ₽
+                </div>
+
+                <div className="ad-meta">
+                  <span className="meta-sep">{ad.category}</span>
+                  <span className="meta-sep">
+                    Создано: {new Date(ad.createdAt).toLocaleString()}
+                  </span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                className="ad-open-btn"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  navigate(`/item/${ad.id}`)
+                }}
               >
-                {statusLabel[ad.status]}
-              </span>
-
-              {ad.priority === 'urgent' && (
-                <span className="chip chip-priority-urgent">Срочно</span>
-              )}
-            </div>
-
-            <div className="ad-meta">
-              <span>{ad.price} ₽</span>
-              <span className="meta-sep">{ad.category}</span>
-              <span className="meta-sep">
-                Создано: {new Date(ad.createdAt).toLocaleString()}
-              </span>
-            </div>
-          </li>
-        ))}
+                Открыть
+              </button>
+            </li>
+          )
+        })}
 
         {!ads.length && !loading && !error && (
-          <li>Объявлений нет.</li>
+          <li className="empty-state">
+            <div className="empty-state-content">
+              <PiWarningCircleThin size={96} className="empty-state-icon" />
+              <h3 className="empty-state-title">Объявлений не найдено</h3>
+              <p className="empty-state-description">
+                Попробуйте изменить фильтры или сбросить их, чтобы увидеть больше результатов
+              </p>
+            </div>
+          </li>
         )}
       </ul>
+
 
       {pagination && pagination.totalPages > 1 && (
         <div className="pagination">

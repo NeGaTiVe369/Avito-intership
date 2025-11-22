@@ -61,6 +61,13 @@ export interface AdsListResponse {
 export interface AdsListParams {
   page?: number
   limit?: number
+  status?: AdStatus[]
+  categoryId?: number
+  minPrice?: number
+  maxPrice?: number
+  search?: string
+  sortBy?: 'createdAt' | 'price' | 'priority'
+  sortOrder?: 'asc' | 'desc'
 }
 
 export interface ModerationActionResponse {

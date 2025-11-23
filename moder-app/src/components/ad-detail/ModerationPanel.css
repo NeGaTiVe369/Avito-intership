@@ -192,3 +192,9 @@
   cursor: not-allowed;
   transform: none;
 }
+
+.modal-error {
+  margin-top: -12px;
+  font-size: 13px;
+  color: #ff4153;
+}

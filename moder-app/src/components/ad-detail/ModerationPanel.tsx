@@ -33,6 +33,8 @@ const ModerationPanel = ({ ad, onAdUpdate }: ModerationPanelProps) => {
     const [actionError, setActionError] = useState<string | null>(null)
 
     const isPending = ad.status === 'pending'
+    const isCommentRequired = reason === 'Другое'
+    const isCommentEmpty = comment.trim().length === 0
 
     const handleApprove = async () => {
         if (!isPending || actionLoading) return
@@ -68,6 +70,11 @@ const ModerationPanel = ({ ad, onAdUpdate }: ModerationPanelProps) => {
 
     const handleSubmitModal = async () => {
         if (!modalType) return
+
+        if (isCommentRequired && isCommentEmpty) {
+            setActionError('Для причины «Другое» комментарий обязателен')
+            return
+        }
 
         const payload: ModerationPayload = {
             reason,
@@ -155,9 +162,10 @@ const ModerationPanel = ({ ad, onAdUpdate }: ModerationPanelProps) => {
                             <select
                                 className="modal-select"
                                 value={reason}
-                                onChange={(e) =>
+                                onChange={(e) =>{
                                     setReason(e.target.value as ModerationReason)
-                                }
+                                    setActionError(null)
+                                }}
                             >
                                 {REASONS.map((r) => (
                                     <option key={r} value={r}>
@@ -169,14 +177,21 @@ const ModerationPanel = ({ ad, onAdUpdate }: ModerationPanelProps) => {
 
                         <div className="modal-field">
                             <label className="modal-label">
-                                Комментарий (необязательно)
+                                Комментарий {isCommentRequired ? '(обязательно)' : '(необязательно)'}
                             </label>
                             <textarea
                                 className="modal-textarea"
                                 value={comment}
-                                onChange={(e) => setComment(e.target.value)}
+                                onChange={(e) => {
+                                    setComment(e.target.value) 
+                                    setActionError(null)
+                                }}
+                                placeholder="Добавьте подробный комментарий…"
                             />
                         </div>
+                        {actionError && (
+                            <div className="modal-error">{actionError}</div>
+                        )}
 
                         <div className="modal-actions">
                             <button
@@ -194,7 +209,7 @@ const ModerationPanel = ({ ad, onAdUpdate }: ModerationPanelProps) => {
                                         : 'btn-changes')
                                 }
                                 onClick={handleSubmitModal}
-                                disabled={actionLoading}
+                                disabled={actionLoading || (isCommentRequired && isCommentEmpty)}
                             >
                                 Отправить
                             </button>

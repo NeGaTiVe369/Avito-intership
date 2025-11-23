@@ -4,8 +4,8 @@ import {
     rejectAd,
     requestChanges,
     type ModerationPayload,
-} from '../api/ads'
-import type { Advertisement, ModerationReason } from '../types/ad'
+} from '../../api/ads'
+import type { Advertisement, ModerationReason } from '../../types/ad'
 import './ModerationPanel.css'
 
 type ModalType = 'reject' | 'requestChanges'

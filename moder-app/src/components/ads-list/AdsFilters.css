@@ -139,3 +139,29 @@
   min-width: 220px;
 }
 
+/* @media (max-width: 768px) {
+  .filters {
+    padding: 16px;
+  }
+
+  .filters-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .status-options {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .filters-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .filters-sort-select {
+    width: 100%;
+  }
+
+} */

@@ -1,8 +1,8 @@
-import type { AdStatus } from '../types/ad'
+import type { AdStatus } from '../../types/ad'
 import type {
   FiltersState,
   CategoryOption,
-} from '../hooks/useAdsList'
+} from '../../hooks/useAdsList'
 import './AdsFilters.css'
 
 

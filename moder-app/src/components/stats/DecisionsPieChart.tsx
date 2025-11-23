@@ -1,4 +1,4 @@
-import type { DecisionsDataType } from '../types/stats'
+import type { DecisionsDataType } from '../../types/stats'
 import {
   PieChart,
   Pie,

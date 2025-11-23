@@ -1,4 +1,4 @@
-import type { StatsSummaryType } from '../types/stats'
+import type { StatsSummaryType } from '../../types/stats'
 import './StatsSummary.css'
 
 interface StatsSummaryProps {

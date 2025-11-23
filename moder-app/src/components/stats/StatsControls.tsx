@@ -1,4 +1,4 @@
-import type { StatsPeriod } from '../types/stats'
+import type { StatsPeriod } from '../../types/stats'
 import './StatsControls.css'
 
 interface StatsControlsProps {

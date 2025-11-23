@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import type { StatsPeriod } from '../types/stats'
-import StatsSummary from '../components/StatsSummary'
-import ActivityChart from '../components/ActivityChart'
-import { DecisionsPieChart } from '../components/DecisionsPieChart'
-import CategoriesBarChart from '../components/CategoriesBarChart'
-import StatsControls from '../components/StatsControls'
+import StatsSummary from '../components/stats/StatsSummary'
+import ActivityChart from '../components/stats/ActivityChart'
+import { DecisionsPieChart } from '../components/stats/DecisionsPieChart'
+import CategoriesBarChart from '../components/stats/CategoriesBarChart'
+import StatsControls from '../components/stats/StatsControls'
 import { useStats } from '../hooks/useStats'
+import { buildStatsCsv } from '../utils/buildStatsCsv'
 import './StatsPage.css'
 
 
@@ -26,8 +27,38 @@ const StatsPage = () => {
   }
 
   const handleExport = () => {
-    console.log('Export stats clicked')
+  if (
+    !summary &&
+    activity.length === 0 &&
+    !decisions &&
+    !categories
+  ) {
+    alert('Нет данных для экспорта')
+    return
   }
+
+  const csvContent = buildStatsCsv({
+    period,
+    summary,
+    activity,
+    decisions,
+    categories,
+  })
+
+  const blob = new Blob([csvContent], {
+    type: 'text/csv;charset=utf-8;',
+  })
+
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.setAttribute('download', `moderation-stats-${period}.csv`)
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(url)
+}
+
 
   const categoriesEntries = categories
     ? Object.entries(categories).sort((a, b) => b[1] - a[1])

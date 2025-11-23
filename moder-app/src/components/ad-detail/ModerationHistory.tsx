@@ -1,5 +1,5 @@
 import { FiCheckCircle, FiXCircle, FiAlertCircle } from "react-icons/fi"
-import type { ModerationHistoryItem } from "../types/ad"
+import type { ModerationHistoryItem } from "../../types/ad"
 import "./ModerationHistory.css"
 
 const actionLabel: Record<ModerationHistoryItem["action"], string> = {

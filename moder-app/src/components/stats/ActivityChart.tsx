@@ -1,4 +1,4 @@
-import type { ActivityPointType } from '../types/stats'
+import type { ActivityPointType } from '../../types/stats'
 import {
   ResponsiveContainer,
   BarChart,

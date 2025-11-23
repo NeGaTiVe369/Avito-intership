@@ -1,4 +1,4 @@
-import type { Advertisement } from '../types/ad'
+import type { Advertisement } from '../../types/ad'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
 

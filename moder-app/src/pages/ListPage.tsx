@@ -3,7 +3,7 @@ import type { Advertisement } from '../types/ad'
 import './ListPage.css'
 import { useAdsList } from '../hooks/useAdsList'
 import { PiWarningCircleThin } from "react-icons/pi"
-import AdsFilters from '../components/AdsFilters'
+import AdsFilters from '../components/ads-list/AdsFilters'
 
 const statusLabel: Record<Advertisement['status'], string> = {
   pending: 'На модерации',

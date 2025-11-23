@@ -1,8 +1,8 @@
 import type { Advertisement } from '../types/ad'
 import { useNavigate, useParams } from 'react-router-dom'
-import ModerationPanel from '../components/ModerationPanel'
-import ModerationHistory from '../components/ModerationHistory'
-import AdGallery from '../components/AdGallery'
+import ModerationPanel from '../components/ad-detail/ModerationPanel'
+import ModerationHistory from '../components/ad-detail/ModerationHistory'
+import AdGallery from '../components/ad-detail/AdGallery'
 import { useAdDetails } from '../hooks/useAdDetails'
 import './AdDetailPage.css'
 

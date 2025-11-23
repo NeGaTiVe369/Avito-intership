@@ -1,41 +1,39 @@
 import { api } from './http'
 import type {
   StatsPeriod,
-  StatsSummary,
-  ActivityPoint,
-  DecisionsData,
-  CategoriesData,
+  StatsSummaryType,
+  ActivityPointType,
+  DecisionsDataType,
+  CategoriesDataType,
 } from '../types/stats'
 
 export interface StatsParams {
   period?: StatsPeriod
 }
 
-//общая статистика
 export async function getStatsSummary(params: StatsParams) {
-  const response = await api.get<StatsSummary>('/stats/summary', { params })
+  const response = await api.get<StatsSummaryType>('/stats/summary', { params })
+  console.log(response.data)
   return response.data
 }
 
-//график активности
 export async function getActivityChart(params: StatsParams) {
-  const response = await api.get<ActivityPoint[]>('/stats/chart/activity', {
+  const response = await api.get<ActivityPointType[]>('/stats/chart/activity', {
     params,
   })
+  
   return response.data
 }
 
-//график решений
 export async function getDecisionsChart(params: StatsParams) {
-  const response = await api.get<DecisionsData>('/stats/chart/decisions', {
+  const response = await api.get<DecisionsDataType>('/stats/chart/decisions', {
     params,
   })
   return response.data
 }
 
-//график категорий
 export async function getCategoriesChart(params: StatsParams) {
-  const response = await api.get<CategoriesData>('/stats/chart/categories', {
+  const response = await api.get<CategoriesDataType>('/stats/chart/categories', {
     params,
   })
   return response.data

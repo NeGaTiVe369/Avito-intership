@@ -23,7 +23,7 @@
 
 .page-total {
   font-size: 15px;
-  color: #6b7280;
+  color: #049ffe;
   font-weight: 500;
 }
 
@@ -257,4 +257,63 @@
   color: #6b7280;
   margin: 0;
   line-height: 1.6;
+}
+
+@media (max-width: 1000px) {
+  .ad-title {
+    font-size: 18px;
+  }
+
+  .chip {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .page {
+    padding: 20px 16px 32px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .ad-card {
+    padding: 16px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ad-img {
+    flex: 0 0 auto;
+    width: 100%;
+    height: 280px;
+  }
+
+  .ad-title {
+    font-size: 20px;
+  }
+
+  .ad-title-row {
+    align-items: flex-start;
+  }
+
+  .chip {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+
+  .ad-open-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }

@@ -108,6 +108,11 @@
   gap: 8px;
 }
 
+.filters-range .filters-input {
+  flex: 1 1 0;
+  min-width: 100px;
+}
+
 .filters-range span {
   color: #9ca3af;
 }
@@ -139,7 +144,23 @@
   min-width: 220px;
 }
 
-/* @media (max-width: 768px) {
+@media (max-width: 1000px) {
+  .status-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 16px;
+    row-gap: 8px;
+  }
+}
+
+@media (max-width: 800px) {
+  .filters-group{
+    min-width: 200px;
+  }
+}
+
+
+@media (max-width: 768px) {
   .filters {
     padding: 16px;
   }
@@ -149,19 +170,32 @@
     gap: 16px;
   }
 
+  .filters-group--search,
+  .filters-group--category,
+  .filters-group--price {
+    flex: 1 1 100%;
+    margin-left: 0;
+  }
+
   .status-options {
-    flex-direction: column;
-    gap: 12px;
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
   }
 
   .filters-actions {
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: stretch;
-    gap: 16px;
+    gap: 24px;
+    padding-top: 8px;
   }
 
   .filters-sort-select {
     width: 100%;
   }
 
-} */
+  .filters-input,
+  .filters-select {
+    width: 100%;
+  }
+}

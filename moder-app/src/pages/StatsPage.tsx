@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { StatsPeriod } from '../types/stats'
 import StatsSummary from '../components/StatsSummary'
+import ActivityChart from '../components/ActivityChart'
 import StatsControls from '../components/StatsControls'
 import { useStats } from '../hooks/useStats'
 import './StatsPage.css'
@@ -42,6 +43,10 @@ const StatsPage = () => {
 
       {summary && <StatsSummary summary={summary} round={round} />}
 
+       <section className="stats-section">
+        <h2 className="stats-section-title">Активность по дням</h2>
+        <ActivityChart data={activity} loading={loading} />
+      </section>
     </div>
   )
 }

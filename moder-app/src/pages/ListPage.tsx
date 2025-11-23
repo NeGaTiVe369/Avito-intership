@@ -1,16 +1,8 @@
-import { useNavigate } from 'react-router-dom'
-import type { Advertisement } from '../types/ad'
-import './ListPage.css'
 import { useAdsList } from '../hooks/useAdsList'
 import { PiWarningCircleThin } from "react-icons/pi"
 import AdsFilters from '../components/ads-list/AdsFilters'
-
-const statusLabel: Record<Advertisement['status'], string> = {
-  pending: 'На модерации',
-  approved: 'Одобрено',
-  rejected: 'Отклонено',
-  draft: 'Черновик',
-}
+import AdCard from '../components/ads-list/AdCard'
+import './ListPage.css'
 
 const ListPage = () => {
   const {
@@ -29,8 +21,6 @@ const ListPage = () => {
     handleSortChange,
     handleResetFilters,
   } = useAdsList()
-
-  const navigate = useNavigate()
 
   return (
     <div className="page">
@@ -59,69 +49,9 @@ const ListPage = () => {
       {loading && !ads.length && <div className="loader">Загрузка…</div>}
 
       <ul className="ads-list">
-        {ads.map((ad) => {
-          return (
-            <li
-              key={ad.id}
-              className="ad-card"
-              onClick={() => navigate(`/item/${ad.id}`)}
-            >
-              <div className="ad-img">
-                <img
-                  src={ad.images[0] || "/placeholder.png"}
-                  alt={ad.title}
-                />
-              </div>
-
-              <div className="ad-content">
-                <div className="ad-title-row">
-                  <span className="ad-title">{ad.title}</span>
-
-                  <span
-                    className={
-                      'chip ' +
-                      (ad.status === 'approved'
-                        ? 'chip-status-approved'
-                        : ad.status === 'rejected'
-                          ? 'chip-status-rejected'
-                          : ad.status === 'draft'
-                            ? 'chip-status-draft'
-                            : 'chip-status-pending')
-                    }
-                  >
-                    {statusLabel[ad.status]}
-                  </span>
-
-                  {ad.priority === 'urgent' && (
-                    <span className="chip chip-priority-urgent">Срочно</span>
-                  )}
-                </div>
-
-                <div className="ad-price">
-                  {ad.price} ₽
-                </div>
-
-                <div className="ad-meta">
-                  <span className="meta-sep">{ad.category}</span>
-                  <span className="meta-sep">
-                    Создано: {new Date(ad.createdAt).toLocaleString("ru-RU")}
-                  </span>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                className="ad-open-btn"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  navigate(`/item/${ad.id}`)
-                }}
-              >
-                Открыть
-              </button>
-            </li>
-          )
-        })}
+        {ads.map((ad) => (
+          <AdCard key={ad.id} ad={ad} />
+        ))}
 
         {!ads.length && !loading && !error && (
           <li className="empty-state">

@@ -3,6 +3,8 @@ import type {
   FiltersState,
   CategoryOption,
 } from '../../hooks/useAdsList'
+import { useRef } from 'react'
+import { useHotkeys } from '../../hooks/useHotkeys'
 import './AdsFilters.css'
 
 
@@ -31,6 +33,17 @@ function AdsFilters({ ...props }: AdsFiltersProps) {
     onResetFilters,
   } = props
 
+  const searchInputRef = useRef<HTMLInputElement | null>(null)
+
+  useHotkeys(
+    {
+      '/': (event) => {
+        event.preventDefault()
+        searchInputRef.current?.focus()
+      },
+    },
+  )
+
   return (
     <div className="filters">
       <div className="filters-row">
@@ -45,6 +58,7 @@ function AdsFilters({ ...props }: AdsFiltersProps) {
             placeholder="Введите текст…"
             value={filters.search}
             onChange={(e) => onSearchChange(e.target.value)}
+            ref={searchInputRef}
           />
         </div>
 

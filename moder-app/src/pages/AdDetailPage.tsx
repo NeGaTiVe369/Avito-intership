@@ -4,6 +4,7 @@ import ModerationPanel from '../components/ad-detail/ModerationPanel'
 import ModerationHistory from '../components/ad-detail/ModerationHistory'
 import AdGallery from '../components/ad-detail/AdGallery'
 import { useAdDetails } from '../hooks/useAdDetails'
+import { useHotkeys } from '../hooks/useHotkeys'
 import './AdDetailPage.css'
 
 const statusLabel: Record<Advertisement['status'], string> = {
@@ -25,6 +26,40 @@ const AdDetailPage = () => {
   const navigate = useNavigate()
 
   const { ad, setAd, loading, error, adId } = useAdDetails(id)
+
+  const hasPrev = adId > 1
+  const hasNext = adId < 150
+
+  const handleBackToList = () => {
+    navigate('/list')
+  }
+
+  const handlePrev = () => {
+    if (!hasPrev) return
+    navigate(`/item/${adId - 1}`)
+  }
+
+  const handleNext = () => {
+    if (!hasNext) return
+    navigate(`/item/${adId + 1}`)
+  }
+
+  useHotkeys(
+    {
+      ArrowLeft: (event) => {
+        event.preventDefault()
+        handlePrev()
+      },
+      ArrowRight: (event) => {
+        event.preventDefault()
+        handleNext()
+      },
+    },
+    {
+      enabled: !loading && !error && !!ad,
+      ignoreInputElements: true,
+    },
+  )
 
   if (loading) {
     return <div className="detail-page">Загрузка…</div>
@@ -116,14 +151,14 @@ const AdDetailPage = () => {
       <ModerationPanel ad={ad} onAdUpdate={setAd} />
 
       <div className="detail-navigation">
-        <button className="nav-btn" onClick={() => navigate('/list')}>
+        <button className="nav-btn" onClick={handleBackToList}>
           Назад к списку
         </button>
         <div className="nav-controls">
-          <button className="nav-btn" onClick={() => navigate(`/item/${adId - 1}`)} disabled={adId <= 1}>
+          <button className="nav-btn" onClick={handlePrev} disabled={!hasPrev}>
             Пред
           </button>
-          <button className="nav-btn" onClick={() => navigate(`/item/${adId + 1}`)} disabled={adId >= 150}>
+          <button className="nav-btn" onClick={handleNext} disabled={!hasNext}>
             След
           </button>
         </div>

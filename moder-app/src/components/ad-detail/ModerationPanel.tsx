@@ -1,11 +1,12 @@
+import type { Advertisement, ModerationReason } from '../../types/ad'
 import { useState } from 'react'
+import { useHotkeys } from '../../hooks/useHotkeys'
 import {
     approveAd,
     rejectAd,
     requestChanges,
     type ModerationPayload,
 } from '../../api/ads'
-import type { Advertisement, ModerationReason } from '../../types/ad'
 import './ModerationPanel.css'
 
 type ModalType = 'reject' | 'requestChanges'
@@ -104,6 +105,31 @@ const ModerationPanel = ({ ad, onAdUpdate }: ModerationPanelProps) => {
             setActionLoading(false)
         }
     }
+
+    useHotkeys(
+        {
+            a: (event) => {
+                event.preventDefault()
+                handleApprove()
+            },
+            A: (event) => {
+                event.preventDefault()
+                handleApprove()
+            },
+            d: (event) => {
+                event.preventDefault()
+                openModal('reject')
+            },
+            D: (event) => {
+                event.preventDefault()
+                openModal('reject')
+            },
+        },
+        {
+            enabled: isPending && !actionLoading && modalType === null,
+            ignoreInputElements: true,
+        },
+    )
 
     return (
         <>

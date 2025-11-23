@@ -104,7 +104,7 @@ const ListPage = () => {
                 <div className="ad-meta">
                   <span className="meta-sep">{ad.category}</span>
                   <span className="meta-sep">
-                    Создано: {new Date(ad.createdAt).toLocaleString()}
+                    Создано: {new Date(ad.createdAt).toLocaleString("ru-RU")}
                   </span>
                 </div>
               </div>

@@ -1,0 +1,40 @@
+.gallery-swiper {
+  width: 100%;
+  max-width: 750px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+
+.gallery-slide {
+  width: 100%;
+  height: 320px;
+}
+
+.gallery-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-empty {
+  font-size: 14px;
+  color: #6b7280;
+  padding: 12px 0;
+  text-align: left;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #049ffe;
+}
+
+.swiper-pagination-bullet {
+  background: #d1d5db;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background: #049ffe;
+}

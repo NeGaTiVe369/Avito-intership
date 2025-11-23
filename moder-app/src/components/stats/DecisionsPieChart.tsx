@@ -26,8 +26,11 @@ export const DecisionsPieChart = ({
   if (loading) {
     return (
       <div className="stats-card">
-        <div className="stats-card-body stats-card-body--centered">
-          Загрузка…
+        <div className="loader">
+          <div className="loader-bar">
+            <div className="loader-bar-fill" />
+          </div>
+          <div className="loader-text">Загрузка…</div>
         </div>
       </div>
     )

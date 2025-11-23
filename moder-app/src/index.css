@@ -22,3 +22,53 @@ body {
 #root {
   min-height: 100vh;
 }
+
+.loader {
+  margin-bottom: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.loader-bar {
+  width: 100%;
+  max-width: 320px;
+  height: 6px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+  position: relative;
+}
+
+.loader-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 40%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #049ffe, #8d5ee2);
+  animation: loader 1.1s ease-in-out infinite;
+}
+
+.loader-text {
+  font-size: 18px;
+  color: #6b7280;
+}
+
+@keyframes loader {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateX(30%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0.4;
+  }
+}

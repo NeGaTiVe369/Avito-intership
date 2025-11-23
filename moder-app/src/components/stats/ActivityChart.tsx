@@ -32,13 +32,18 @@ const ActivityChart = ({ data, loading }: ActivityChartProps) => {
   return (
     <div className="activity-chart">
       {loading ? (
-        <div style={{ padding: '12px' }}>Загрузка графика…</div>
+        <div className="loader">
+          <div className="loader-bar">
+            <div className="loader-bar-fill" />
+          </div>
+          <div className="loader-text">Загрузка…</div>
+        </div>
       ) : !data.length ? (
-        <div style={{ padding: '12px' }}>
+        <div>
           Нет данных для выбранного периода
         </div>
       ) : (
-        
+
         <ResponsiveContainer width="100%" height={300}>
           <BarChart
             data={preparedData}

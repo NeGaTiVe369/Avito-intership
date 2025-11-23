@@ -27,37 +27,37 @@ const StatsPage = () => {
   }
 
   const handleExport = () => {
-  if (
-    !summary &&
-    activity.length === 0 &&
-    !decisions &&
-    !categories
-  ) {
-    alert('Нет данных для экспорта')
-    return
+    if (
+      !summary &&
+      activity.length === 0 &&
+      !decisions &&
+      !categories
+    ) {
+      alert('Нет данных для экспорта')
+      return
+    }
+
+    const csvContent = buildStatsCsv({
+      period,
+      summary,
+      activity,
+      decisions,
+      categories,
+    })
+
+    const blob = new Blob([csvContent], {
+      type: 'text/csv;charset=utf-8;',
+    })
+
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', `moderation-stats-${period}.csv`)
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
   }
-
-  const csvContent = buildStatsCsv({
-    period,
-    summary,
-    activity,
-    decisions,
-    categories,
-  })
-
-  const blob = new Blob([csvContent], {
-    type: 'text/csv;charset=utf-8;',
-  })
-
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.setAttribute('download', `moderation-stats-${period}.csv`)
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-  URL.revokeObjectURL(url)
-}
 
 
   const categoriesEntries = categories
@@ -76,11 +76,18 @@ const StatsPage = () => {
       />
 
       {error && <div className="stats-error">{error}</div>}
-      {loading && <div className="stats-loader">Загрузка…</div>}
+      {loading && (
+        <div className="loader">
+          <div className="loader-bar">
+            <div className="loader-bar-fill" />
+          </div>
+          <div className="loader-text">Загрузка…</div>
+        </div>
+      )}
 
       {summary && <StatsSummary summary={summary} round={round} />}
 
-       <section className="stats-section">
+      <section className="stats-section">
         <h2 className="stats-section-title">Активность по дням</h2>
         <ActivityChart data={activity} loading={loading} />
       </section>
@@ -90,19 +97,16 @@ const StatsPage = () => {
         <DecisionsPieChart data={decisions} loading={loading} />
       </section>
 
-     <section className="stats-section">
+      <section className="stats-section">
         <h2 className="stats-section-title">Распределение по категориям</h2>
 
-        {categoriesEntries.length === 0 ? (
-          <div>Нет данных</div>
-        ) : (
-          <CategoriesBarChart
-            data={categoriesEntries.map(([name, value]) => ({
-              name,
-              value,
-            }))}
-          />
-        )}
+        <CategoriesBarChart
+          data={categoriesEntries.map(([name, value]) => ({
+            name,
+            value,
+          }))}
+          loading={loading}
+        />
       </section>
     </div>
   )

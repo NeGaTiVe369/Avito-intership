@@ -11,9 +11,33 @@ import './DecisionsPieChart.css';
 
 interface CategoriesBarChartProps {
   data: { name: string; value: number }[]
+  loading: boolean
 }
 
-const CategoriesBarChart = ({ data }: CategoriesBarChartProps) => {
+const CategoriesBarChart = ({ data, loading }: CategoriesBarChartProps) => {
+  if (loading) {
+    return (
+      <div className="stats-card">
+        <div className="loader">
+          <div className="loader-bar">
+            <div className="loader-bar-fill" />
+          </div>
+          <div className="loader-text">Загрузка…</div>
+        </div>
+      </div>
+    )
+  }
+
+  if (!loading && data.length === 0) {
+    return (
+      <div className="stats-card">
+        <div className="stats-card-body stats-card-body--centered">
+          Пока нет данных для отображения
+        </div>
+      </div>
+    )
+  }
+
   const prepared = [...data].sort((a, b) => b.value - a.value)
 
   return (

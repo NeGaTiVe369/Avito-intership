@@ -46,7 +46,14 @@ const ListPage = () => {
       />
 
       {error && <div className="error">{error}</div>}
-      {loading && !ads.length && <div className="loader">Загрузка…</div>}
+      {loading && !ads.length && (
+        <div className="loader">
+          <div className="loader-bar">
+            <div className="loader-bar-fill" />
+          </div>
+          <div className="loader-text">Загрузка…</div>
+        </div>
+      )}
 
       <ul className="ads-list">
         {ads.map((ad) => (

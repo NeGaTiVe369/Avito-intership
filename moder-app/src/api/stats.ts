@@ -13,7 +13,6 @@ export interface StatsParams {
 
 export async function getStatsSummary(params: StatsParams) {
   const response = await api.get<StatsSummaryType>('/stats/summary', { params })
-  console.log(response.data)
   return response.data
 }
 

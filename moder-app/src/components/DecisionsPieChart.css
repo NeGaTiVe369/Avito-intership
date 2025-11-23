@@ -1,0 +1,20 @@
+.stats-card {
+  border-radius: 8px;
+  border: 1px solid #049ffe;
+  padding: 10px 12px 16px;
+  background: #ffffff;
+}
+
+.stats-card-body {
+  width: 100%;
+}
+
+.stats-card-body--centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  color: #6b7280;
+  font-size: 14px;
+  text-align: center;
+}

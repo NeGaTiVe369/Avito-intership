@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { StatsPeriod } from '../types/stats'
 import StatsSummary from '../components/StatsSummary'
 import ActivityChart from '../components/ActivityChart'
+import { DecisionsPieChart } from '../components/DecisionsPieChart'
 import StatsControls from '../components/StatsControls'
 import { useStats } from '../hooks/useStats'
 import './StatsPage.css'
@@ -47,6 +48,12 @@ const StatsPage = () => {
         <h2 className="stats-section-title">Активность по дням</h2>
         <ActivityChart data={activity} loading={loading} />
       </section>
+
+      <section className="stats-section">
+        <h2 className="stats-section-title">Распределение решений</h2>
+        <DecisionsPieChart data={decisions} loading={loading} />
+      </section>
+
     </div>
   )
 }
